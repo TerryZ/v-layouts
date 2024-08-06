@@ -1,0 +1,71 @@
+{
+  "name": "v-layouts",
+  "description": "Web page layout collection for Vue3",
+  "version": "1.0.0",
+  "author": "TerryZ <terry5@foxmail.com>",
+  "type": "module",
+  "files": [
+    "/dist",
+    "/types"
+  ],
+  "main": "./dist/v-layouts.umd.cjs",
+  "module": "./dist/v-layouts.js",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./types/index.d.ts",
+        "default": "./dist/v-layouts.js"
+      },
+      "require": "./dist/v-layouts.umd.cjs"
+    }
+  },
+  "typings": "types/index.d.ts",
+  "license": "MIT",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview --port 4173",
+    "test:unit": "vitest",
+    "coverage": "vitest run --coverage",
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
+    "dts": "vue-tsc --declaration --emitDeclarationOnly"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TerryZ/v-layouts.git"
+  },
+  "keywords": [
+    "front-end",
+    "vue",
+    "layout"
+  ],
+  "peerDependencies": {
+    "vue": "^3.2.0"
+  },
+  "dependencies": {
+    "vue": "^3.4.27"
+  },
+  "devDependencies": {
+    "@rushstack/eslint-patch": "^1.8.0",
+    "@vitejs/plugin-vue": "^5.0.5",
+    "@vitejs/plugin-vue-jsx": "^4.0.0",
+    "@vitest/coverage-v8": "^1.6.0",
+    "@vue/eslint-config-standard": "^8.0.1",
+    "@vue/eslint-config-prettier": "^9.0.0",
+    "@vue/test-utils": "^2.4.6",
+    "autoprefixer": "^10.4.19",
+    "bootstrap": "^5.3.3",
+    "eslint": "^8.57.0",
+    "eslint-plugin-vue": "^9.26.0",
+    "jsdom": "^24.1.0",
+    "postcss": "^8.4.38",
+    "sass": "^1.77.6",
+    "typescript": "^5.4.5",
+    "prettier": "^3.3.0",
+    "vite": "^5.2.12",
+    "vite-plugin-css-injected-by-js": "^3.5.1",
+    "vitest": "^1.6.0",
+    "vue-router": "^4.3.2",
+    "vue-tsc": "^2.0.19"
+  }
+}
