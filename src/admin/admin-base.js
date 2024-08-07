@@ -2,32 +2,41 @@ import { computed } from 'vue'
 
 export function mergeProps (props) {
   return {
-    // 收起侧边栏（侧边栏最小化）
-    collapse: {
-      type: Boolean,
-      default: false
+    width: {
+      type: [String, Number],
+      default: '100vw'
     },
-    // 头部区域高度
+    height: {
+      type: [String, Number],
+      default: '100vh'
+    },
     headerHeight: {
       type: Number,
       default: 60
     },
-    // 面包屑区域高度
     breadcrumbHeight: {
       type: Number,
       default: 60
     },
-    // 侧边栏宽度
+    footerHeight: {
+      type: Number,
+      default: 60
+    },
+    // Aside collapse state
+    collapse: {
+      type: Boolean,
+      default: false
+    },
     asideWidth: {
       type: Number,
       default: 260
     },
-    // 侧边栏收起（最小化）后的宽度
+    // The width of the collapsed sidebar
     asideCollapseWidth: {
       type: Number,
       default: 70
     },
-    // 内容区域间距
+    // Main content margin space
     contentMargin: {
       type: Number,
       default: 4,
@@ -35,17 +44,16 @@ export function mergeProps (props) {
         return val >= 0 && val <= 5
       }
     },
-    // 内容区域是否设置圆角
+    // Main content area border rounded
     contentRounded: {
       type: Boolean,
       default: false
     },
-    // 内容间距区是否使用灰色背景色
     contentGrayBackground: {
       type: Boolean,
       default: true
     },
-    // 内容区域是否使用阴影
+    // Main content area display shadow
     contentShadow: {
       type: Boolean,
       default: true

@@ -1,0 +1,19 @@
+.layout-admin-classic
+  display: grid
+  overflow: hidden
+  // grid-template-areas: "header header" "aside breadcrumb" "aside main" "aside footer"
+  box-sizing: border-box
+  align-items: stretch
+  .admin-header
+    grid-area: header
+  .admin-aside
+    grid-area: aside
+    overflow: visible
+    transition: width .2s
+    will-change: width
+  .admin-breadcrumb
+    grid-area: breadcrumb
+  .admin-main
+    grid-area: main
+  .admin-footer
+    grid-area: footer
