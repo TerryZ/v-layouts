@@ -1,14 +1,15 @@
 {
   "compilerOptions": {
     "outDir": "./built",
-    "target": "es5",
+    "target": "ESNext",
     "strict": true,
-    "module": "es2015",
+    "module": "ESNext",
     "moduleResolution": "node",
     "allowJs": true,
     "jsx": "preserve",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@style/*": ["./src/styles/*"]
     }
   }
 }

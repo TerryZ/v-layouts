@@ -10,7 +10,8 @@ import cssInJs from 'vite-plugin-css-injected-by-js'
 export default defineConfig({
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url))
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
+      '@style': fileURLToPath(new URL('./src/styles', import.meta.url))
     }
   },
   build: {
