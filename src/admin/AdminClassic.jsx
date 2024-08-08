@@ -31,12 +31,25 @@ export default defineComponent({
     const hasAside = computed(() => Object.hasOwn(slots, 'aside'))
     const hasBreadcrumb = computed(() => Object.hasOwn(slots, 'breadcrumb'))
     const hasFooter = computed(() => Object.hasOwn(slots, 'footer'))
+    const asideArea = computed(() => hasAside.value ? 'aside' : '')
+    const asideSize = computed(() => hasAside.value
+      ? cssValue(props.collapse ? props.asideCollapsedWidth : props.asideWidth)
+      : ''
+    )
+
+    const mergeAside = areaName => {
+      if (props.asidePosition === 'left') return asideArea.value + ' ' + areaName
+      // aside panel is on the right
+      return areaName + ' ' + asideArea.value
+    }
 
     const containerStyles = computed(() => {
-      const columns = [
-        hasAside.value ? cssValue(props.asideWidth) : '',
-        'auto'
-      ]
+      const columns = ['auto']
+      if (props.asidePosition === 'left') {
+        columns.unshift(asideSize.value)
+      } else {
+        columns.push(asideSize.value)
+      }
       const rows = [
         hasHeader.value ? cssValue(props.headerHeight) : '',
         hasBreadcrumb.value ? cssValue(props.breadcrumbHeight) : '',
@@ -45,19 +58,11 @@ export default defineComponent({
       ]
 
       const areas = []
-      const asideArea = hasAside.value ? 'aside ' : ''
-      if (hasHeader.value) {
-        areas.push('header header')
-      }
-      if (hasBreadcrumb.value) {
-        areas.push(asideArea + 'breadcrumb')
-      }
-      areas.push(asideArea + 'main')
-      if (hasFooter.value) {
-        areas.push(asideArea + 'footer')
-      }
+      hasHeader.value && areas.push('header header')
+      hasBreadcrumb.value && areas.push(mergeAside('breadcrumb'))
+      areas.push(mergeAside('main'))
+      hasFooter.value && areas.push(mergeAside('footer'))
       const areasResult = areas.map(area => `"${area}"`)
-      console.log(areasResult)
 
       return {
         width: cssValue(props.width),
@@ -69,24 +74,17 @@ export default defineComponent({
     })
 
     return () => (
-      // Main container
       <div class='layout-admin-classic' style={containerStyles.value}>
         {slots.header && (
-          <div class='admin-header'>
-            {slots.header()}
-          </div>
+          <div class='admin-header'>{slots.header()}</div>
         )}
 
         {slots.aside && (
-          <div class='admin-aside flex-shrink-0'>
-            {slots.aside()}
-          </div>
+          <div class='admin-aside'>{slots.aside()}</div>
         )}
 
         {slots.breadcrumb && (
-          <div class='admin-breadcrumb'>
-            {slots.breadcrumb()}
-          </div>
+          <div class='admin-breadcrumb'>{slots.breadcrumb()}</div>
         )}
 
         <div class={contentMainClass.value}>
@@ -96,9 +94,7 @@ export default defineComponent({
         </div>
 
         {slots.footer && (
-          <div class='admin-footer'>
-            {slots.footer()}
-          </div>
+          <div class='admin-footer' >{slots.footer()}</div>
         )}
       </div>
     )

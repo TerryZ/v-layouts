@@ -32,17 +32,19 @@ export function mergeProps (props) {
       default: 260
     },
     // The width of the collapsed sidebar
-    asideCollapseWidth: {
+    asideCollapsedWidth: {
       type: Number,
       default: 70
+    },
+    asidePosition: {
+      type: String,
+      default: 'left'
     },
     // Main content margin space
     contentMargin: {
       type: Number,
       default: 4,
-      validator: function (val) {
-        return val >= 0 && val <= 5
-      }
+      validator: val => (val >= 0 && val <= 5)
     },
     // Main content area border rounded
     contentRounded: {
@@ -65,7 +67,7 @@ export function mergeProps (props) {
 export function useAdmin (props) {
   // 内容区域主容器样式
   const contentMainClass = computed(() => {
-    const classes = ['admin-main', 'overflow-auto']
+    const classes = ['admin-main']
     // 容器与内容区域之间的间隔
     classes.push(`p-${props.contentMargin}`)
     classes.push(props.contentGrayBackground ? 'bg-light-gray' : 'bg-white')

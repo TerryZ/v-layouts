@@ -4,7 +4,7 @@
       class="bg-light fw-bold flex-shrink-0"
       style="width: 18rem;"
     >
-      <div class="py-4 px-3 d-flex align-items-center font-monospace">
+      <div class="py-4 px-3 d-flex align-items-baseline font-monospace">
         <div class="fs-3 me-2">
           v-layouts
         </div>
@@ -40,7 +40,7 @@ import { ref, onBeforeMount } from 'vue'
 import { useRoute } from 'vue-router'
 
 const modules = [
-  { key: 'classic', name: 'Classic Admin', url: '/classic' }
+  { key: 'classic', name: 'Admin Classic', url: '/classic' }
 ]
 const active = ref('')
 
