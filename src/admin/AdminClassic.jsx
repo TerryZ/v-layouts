@@ -1,6 +1,6 @@
 import '@style/admin-classic.sass'
 
-import { defineComponent, computed } from 'vue'
+import { defineComponent, computed, toRefs } from 'vue'
 
 import { mergeProps, useAdmin } from './admin-base'
 import { cssValue } from '../helper'
@@ -22,6 +22,7 @@ export default defineComponent({
   name: 'AdminClassic',
   props: mergeProps(),
   setup (props, { slots }) {
+    const { collapse } = toRefs(props)
     const {
       contentMainClass,
       contentContainerClass
@@ -31,45 +32,43 @@ export default defineComponent({
     const hasAside = computed(() => Object.hasOwn(slots, 'aside'))
     const hasBreadcrumb = computed(() => Object.hasOwn(slots, 'breadcrumb'))
     const hasFooter = computed(() => Object.hasOwn(slots, 'footer'))
-    const asideArea = computed(() => hasAside.value ? 'aside' : '')
+
     const asideSize = computed(() => hasAside.value
-      ? cssValue(props.collapse ? props.asideCollapsedWidth : props.asideWidth)
+      ? cssValue(collapse.value ? props.asideCollapsedWidth : props.asideWidth)
       : ''
     )
 
+    const chooseSide = () => props.asidePosition === 'left' ? 0 : -1
     const mergeAside = areaName => {
-      if (props.asidePosition === 'left') return asideArea.value + ' ' + areaName
-      // aside panel is on the right
-      return areaName + ' ' + asideArea.value
+      const areas = [hasAside.value ? 'aside' : '', areaName].sort(chooseSide)
+      return areas.join(' ')
     }
+    const moduleSize = (condition, size) => condition ? cssValue(size) : ''
+    const modulePlaceholder = (condition, placeholder) => condition ? placeholder : ''
 
     const containerStyles = computed(() => {
-      const columns = ['auto']
-      if (props.asidePosition === 'left') {
-        columns.unshift(asideSize.value)
-      } else {
-        columns.push(asideSize.value)
-      }
+      const columns = [asideSize.value, 'auto'].sort(chooseSide)
+
       const rows = [
-        hasHeader.value ? cssValue(props.headerHeight) : '',
-        hasBreadcrumb.value ? cssValue(props.breadcrumbHeight) : '',
+        moduleSize(hasHeader.value, props.headerHeight),
+        moduleSize(hasBreadcrumb.value, props.breadcrumbHeight),
         'auto',
-        hasFooter.value ? cssValue(props.footerHeight) : ''
+        moduleSize(hasFooter.value, props.footerHeight)
       ]
 
-      const areas = []
-      hasHeader.value && areas.push('header header')
-      hasBreadcrumb.value && areas.push(mergeAside('breadcrumb'))
-      areas.push(mergeAside('main'))
-      hasFooter.value && areas.push(mergeAside('footer'))
-      const areasResult = areas.map(area => `"${area}"`)
+      const areas = [
+        modulePlaceholder(hasHeader.value, 'header header'),
+        modulePlaceholder(hasBreadcrumb.value, mergeAside('breadcrumb')),
+        mergeAside('main'),
+        modulePlaceholder(hasFooter.value, mergeAside('footer'))
+      ]
 
       return {
         width: cssValue(props.width),
         height: cssValue(props.height),
         'grid-template-columns': columns.join(' '),
         'grid-template-rows': rows.join(' '),
-        'grid-template-areas': areasResult.join(' ')
+        'grid-template-areas': areas.map(area => `"${area}"`).join(' ')
       }
     })
 
