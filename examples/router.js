@@ -5,7 +5,8 @@ const routes = [
     path: '/',
     component: () => import('./ExamplesIndex.vue'),
     children: [
-      { path: '/classic', component: () => import('./ExampleClassic.vue') }
+      { path: '/classic', component: () => import('./ExampleClassic.vue') },
+      { path: '/panel-group', component: () => import('./ExamplePanelGroup.vue') }
     ]
   }
 ]

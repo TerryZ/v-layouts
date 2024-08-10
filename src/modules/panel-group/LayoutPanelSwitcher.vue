@@ -1,6 +1,6 @@
 <template>
   <div
-    class="d-flex cursor-pointer px-3"
+    class="panel-item-switcher"
     :class="classes"
     @click="change"
   >
@@ -9,7 +9,7 @@
       width="16"
       height="16"
       fill="currentColor"
-      class="bi bi-caret-down-fill transition-all"
+      class="bi bi-caret-down-fill"
       viewBox="0 0 16 16"
       :style="styles"
     >

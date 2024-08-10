@@ -12,9 +12,32 @@
           examples
         </div>
       </div>
+
+      <div class="ps-3 py-3">
+        <h5>Admin layout modules</h5>
+      </div>
       <div
         class="px-3 pb-4"
-        v-for="item in modules"
+        v-for="item in adminModules"
+        :key="item.key"
+      >
+        <router-link
+          class="nav-link"
+          aria-current="page"
+          :class="isActive(item)"
+          :to="item.url"
+          @click="change(item)"
+        >
+          {{ item.name }}
+        </router-link>
+      </div>
+
+      <div class="ps-3 py-3">
+        <h5>Other layout modules</h5>
+      </div>
+      <div
+        class="px-3 pb-4"
+        v-for="item in otherModules"
         :key="item.key"
       >
         <router-link
@@ -39,8 +62,11 @@
 import { ref, onBeforeMount } from 'vue'
 import { useRoute } from 'vue-router'
 
-const modules = [
+const adminModules = [
   { key: 'classic', name: 'Admin Classic', url: '/classic' }
+]
+const otherModules = [
+  { key: 'panel-group', name: 'Panel group', url: '/panel-group' }
 ]
 const active = ref('')
 
@@ -56,7 +82,8 @@ function change (item) {
 
 onBeforeMount(() => {
   const route = useRoute()
-  const module = modules.find(val => val.url === route.path)
+  const allModules = [...adminModules, ...otherModules]
+  const module = allModules.find(val => val.url === route.path)
   if (module) {
     active.value = module.key
   }

@@ -37,7 +37,8 @@
   "keywords": [
     "front-end",
     "vue",
-    "layout"
+    "layout",
+    "panel-group"
   ],
   "peerDependencies": {
     "vue": "^3.2.0"
