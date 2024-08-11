@@ -1,6 +1,9 @@
 import { ref, computed, watchEffect } from 'vue'
 
+import { cssValue } from '../../helper'
+
 export const panelGroupInjectKey = Symbol('panel-group')
+export const panelItemInjectKey = Symbol('panel-item')
 
 export function usePanelGroup (props, emit) {
   const panels = ref([])
@@ -12,6 +15,8 @@ export function usePanelGroup (props, emit) {
     panels.value.map(val => val.collapse ? 'auto' : '1fr').join(' ')
   ))
   const groupStyles = computed(() => ({
+    width: cssValue(props.width),
+    height: cssValue(props.height),
     'grid-template-rows': gridTemplateRows.value,
     'row-gap': props.gap
   }))

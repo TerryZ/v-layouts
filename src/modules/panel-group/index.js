@@ -1,9 +1,11 @@
-import LayoutPanelGroup from './LayoutPanelGroup.vue'
-import LayoutPanelItem from './LayoutPanelItem.vue'
-import LayoutPanelSwitcher from './LayoutPanelSwitcher.vue'
+import PanelGroup from './PanelGroup.vue'
+import PanelItem from './PanelItem.vue'
+import PanelItemHeader from './PanelItemHeader.vue'
+import PanelSwitcher from './PanelSwitcher.vue'
 
 export {
-  LayoutPanelGroup,
-  LayoutPanelItem,
-  LayoutPanelSwitcher
+  PanelGroup,
+  PanelItem,
+  PanelItemHeader,
+  PanelSwitcher
 }

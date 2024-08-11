@@ -37,38 +37,102 @@
       </div>
     </div>
     <div class="d-flex">
-      <div
-        class=""
-        style="width: 300px;height: 500px;"
-      >
-        <LayoutPanelGroup v-model="activeItems">
-          <LayoutPanelItem
-            name="panel1"
-            title="标题栏文本内容"
-            class="border"
-          >
-            <div>内容</div>
-          </LayoutPanelItem>
-          <LayoutPanelItem
-            name="panel2"
-            class="border"
-          >
-            <template #header>
-              <h3>标题栏文本</h3>
-            </template>
-            <div>内容</div>
-          </LayoutPanelItem>
-          <LayoutPanelItem
-            name="panel3"
-            class="border"
-            v-if="panel3Visible"
-          >
-            <template #header>
-              <h3>标题栏文本</h3>
-            </template>
-            <div>内容</div>
-          </LayoutPanelItem>
-        </LayoutPanelGroup>
+      <div class="col-md-6">
+        <div
+          class=""
+          style="width: 300px;height: 500px;"
+        >
+          <PanelGroup v-model="activeItems">
+            <PanelItem
+              name="panel1"
+              class="border"
+            >
+              <template #header>
+                <PanelItemHeader>
+                  <h3 class="m-0">
+                    标题栏文本
+                  </h3>
+                </PanelItemHeader>
+              </template>
+              <div style="height: 500px;">
+                内容
+              </div>
+            </PanelItem>
+            <PanelItem
+              name="panel2"
+              class="border"
+            >
+              <template #header>
+                <PanelItemHeader>
+                  <h3 class="m-0">
+                    标题栏文本
+                  </h3>
+                </PanelItemHeader>
+              </template>
+              <div style="height: 500px;">
+                内容
+              </div>
+            </PanelItem>
+            <PanelItem
+              name="panel3"
+              class="border"
+              v-if="panel3Visible"
+            >
+              <template #header>
+                <PanelItemHeader>
+                  <h3 class="m-0">
+                    标题栏文本
+                  </h3>
+                </PanelItemHeader>
+              </template>
+              <div style="height: 500px;">
+                内容
+              </div>
+            </PanelItem>
+          </PanelGroup>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div
+          class=""
+          style="width: 300px;height: 500px;"
+        >
+          <PanelGroup>
+            <PanelItem
+              name="panel1"
+              class="border"
+            >
+              <div>内容</div>
+            </PanelItem>
+            <PanelItem
+              name="panel2"
+              class="border"
+            >
+              <template #header>
+                <PanelItemHeader>
+                  <h3 class="m-0 py-3 ps-3 lh-1 fs-5 fw-semibold text-opacity-75">
+                    标题栏文本
+                  </h3>
+                </PanelItemHeader>
+              </template>
+              <div>内容</div>
+            </PanelItem>
+            <PanelItem
+              name="panel3"
+              class="border"
+              v-if="panel3Visible"
+            >
+              <template #header>
+                <PanelItemHeader>
+                  <h3 class="m-0">
+                    标题栏文本
+                  </h3>
+                </PanelItemHeader>
+              </template>
+              <div>内容</div>
+            </PanelItem>
+          </PanelGroup>
+        </div>
       </div>
     </div>
   </div>
@@ -77,8 +141,9 @@
 <script setup>
 import { ref } from 'vue'
 import {
-  LayoutPanelGroup,
-  LayoutPanelItem
+  PanelGroup,
+  PanelItem,
+  PanelItemHeader
   // LayoutPanelSwitcher
 } from '@/'
 

@@ -4,11 +4,11 @@
       class="bg-light fw-bold flex-shrink-0"
       style="width: 18rem;"
     >
-      <div class="py-4 px-3 d-flex align-items-baseline font-monospace">
-        <div class="fs-3 me-2">
+      <div class="pt-3 pb-4 px-3 d-flex align-items-baseline font-monospace">
+        <div class="fs-3 me-2 lh-1">
           v-layouts
         </div>
-        <div class="fs-5 text-muted fw-normal">
+        <div class="fs-5 text-muted fw-normal lh-1">
           examples
         </div>
       </div>
@@ -52,7 +52,7 @@
       </div>
     </div>
 
-    <div class="p-5 flex-grow-1 overflow-auto">
+    <div class="p-3 flex-grow-1 overflow-auto">
       <router-view />
     </div>
   </div>

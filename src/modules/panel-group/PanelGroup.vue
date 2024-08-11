@@ -1,6 +1,6 @@
 <template>
   <div
-    class="h-100 d-grid panel-group"
+    class="panel-group"
     :style="groupStyles"
   >
     <slot />
@@ -15,6 +15,8 @@ import { usePanelGroup, panelGroupInjectKey } from './panel-group'
 
 const props = defineProps({
   modelValue: { type: Array, default: undefined },
+  width: { type: [String, Number], default: 'auto' },
+  height: { type: [String, Number], default: '100%' },
   /** Panel spacing */
   gap: { type: String, default: '1rem' }
 })
