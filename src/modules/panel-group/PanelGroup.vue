@@ -18,24 +18,15 @@ const props = defineProps({
   width: { type: [String, Number], default: 'auto' },
   height: { type: [String, Number], default: '100%' },
   /** Panel spacing */
-  gap: { type: String, default: '1rem' }
+  gap: { type: [String, Number], default: '1rem' },
+  /**
+   * Whether to allow multiple panels to be expanded at the same time
+   */
+  accordion: { type: Boolean, default: true }
 })
 const emit = defineEmits(['update:modelValue'])
 
-const {
-  panelCount,
-  openedPanelCount,
-  groupStyles,
-  createPanel,
-  removePanel,
-  setCollapse
-} = usePanelGroup(props, emit)
+const { groupStyles, createPanel } = usePanelGroup(props, emit)
 
-provide(panelGroupInjectKey, {
-  panelCount,
-  openedPanelCount,
-  createPanel,
-  removePanel,
-  setCollapse
-})
+provide(panelGroupInjectKey, { createPanel })
 </script>

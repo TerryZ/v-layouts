@@ -1,71 +1,58 @@
 <template>
-  <div :class="['panel-item', { 'panel-item--collapsed': states.collapse }]">
+  <div :class="['panel-item', { 'panel-item--collapsed': panel.collapse }]">
     <!-- Panel header -->
-    <!-- <div class="d-flex justify-content-between align-items-center">
+    <div
+      class="panel-item__header"
+      v-if="hasHeader"
+    >
       <slot
         name="header"
-        :collapse="states.collapse"
-      >
-        <div
-          class="m-0 py-3 ps-3 lh-1 fs-5 fw-semibold text-opacity-75 transition-all"
-          :class="headerClasses"
-          v-text="title"
-        />
-      </slot>
+        :collapse="panel.collapse"
+      />
 
-      <LayoutPanelSwitcher
-        :collapse="states.collapse"
+      <PanelSwitcher
+        :collapse="panel.collapse"
         :class="switcherClass"
         :disabled="switcherDisabled"
-        @change="switchPanelCollapse"
+        @change="changeCollapse"
         v-if="switcher"
       />
-    </div> -->
-    <slot name="header" />
+    </div>
 
     <!-- Panel body -->
     <div
-      v-if="!states.collapse"
+      v-if="!panel.collapse"
       class="panel-item__body"
     >
-      <slot :collapse="states.collapse" />
+      <slot :collapse="panel.collapse" />
     </div>
   </div>
 </template>
 
 <script setup>
-import { computed, provide, inject, onUnmounted } from 'vue'
+import { computed, inject, onUnmounted, useSlots } from 'vue'
 
-import { panelGroupInjectKey, panelItemInjectKey } from './panel-group'
+import PanelSwitcher from './PanelSwitcher.vue'
+
+import { panelGroupInjectKey } from './panel-group'
 
 const props = defineProps({
   name: { type: String, default: '' },
   title: { type: String, default: '' },
-  /** 是否显示面板切换器 */
   switcher: { type: Boolean, default: true },
   switcherClass: { type: String, default: '' }
 })
 const emit = defineEmits(['change'])
+const slots = useSlots()
 
-const {
-  openedPanelCount,
-  createPanel,
-  setCollapse,
-  removePanel
-} = inject(panelGroupInjectKey)
+const { createPanel } = inject(panelGroupInjectKey)
+const { panel, switcherDisabled, destroy, setCollapse } = createPanel(props.name)
+const hasHeader = computed(() => !!slots.header)
 
-const states = createPanel(props.name)
+function changeCollapse (collapse) {
+  setCollapse(collapse)
+  emit('change', collapse)
+}
 
-provide(panelItemInjectKey, {
-  panelStates: states,
-  changeCollapse: collapse => {
-    setCollapse(states.value.id, collapse)
-    emit('change', collapse)
-  },
-  switcherDisabled: computed(() => (
-    openedPanelCount.value === 1 && !states.value.collapse
-  ))
-})
-
-onUnmounted(() => removePanel(states.value.id))
+onUnmounted(() => destroy())
 </script>

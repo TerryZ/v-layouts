@@ -48,11 +48,9 @@
               class="border"
             >
               <template #header>
-                <PanelItemHeader>
-                  <h3 class="m-0">
-                    标题栏文本
-                  </h3>
-                </PanelItemHeader>
+                <h3 class="m-0">
+                  标题栏文本
+                </h3>
               </template>
               <div style="height: 500px;">
                 内容
@@ -63,11 +61,9 @@
               class="border"
             >
               <template #header>
-                <PanelItemHeader>
-                  <h3 class="m-0">
-                    标题栏文本
-                  </h3>
-                </PanelItemHeader>
+                <h3 class="m-0">
+                  标题栏文本
+                </h3>
               </template>
               <div style="height: 500px;">
                 内容
@@ -79,11 +75,9 @@
               v-if="panel3Visible"
             >
               <template #header>
-                <PanelItemHeader>
-                  <h3 class="m-0">
-                    标题栏文本
-                  </h3>
-                </PanelItemHeader>
+                <h3 class="m-0">
+                  标题栏文本
+                </h3>
               </template>
               <div style="height: 500px;">
                 内容
@@ -109,11 +103,9 @@
               class="border"
             >
               <template #header>
-                <PanelItemHeader>
-                  <h3 class="m-0 py-3 ps-3 lh-1 fs-5 fw-semibold text-opacity-75">
-                    标题栏文本
-                  </h3>
-                </PanelItemHeader>
+                <h3 class="m-0 py-3 ps-3 lh-1 fs-5 fw-semibold text-opacity-75">
+                  标题栏文本
+                </h3>
               </template>
               <div>内容</div>
             </PanelItem>
@@ -123,11 +115,9 @@
               v-if="panel3Visible"
             >
               <template #header>
-                <PanelItemHeader>
-                  <h3 class="m-0">
-                    标题栏文本
-                  </h3>
-                </PanelItemHeader>
+                <h3 class="m-0">
+                  标题栏文本
+                </h3>
               </template>
               <div>内容</div>
             </PanelItem>
@@ -142,9 +132,7 @@
 import { ref } from 'vue'
 import {
   PanelGroup,
-  PanelItem,
-  PanelItemHeader
-  // LayoutPanelSwitcher
+  PanelItem
 } from '@/'
 
 const activeItems = ref(['panel2'])

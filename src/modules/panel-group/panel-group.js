@@ -9,48 +9,43 @@ export function usePanelGroup (props, emit) {
   const panels = ref([])
   let sequence = 0
 
-  const panelCount = computed(() => panels.value.length)
-  const openedPanelCount = computed(() => panels.value.filter(panel => !panel.collapse).length)
-  const gridTemplateRows = computed(() => (
-    panels.value.map(val => val.collapse ? 'auto' : '1fr').join(' ')
-  ))
+  const openedPanels = computed(() => panels.value.filter(panel => !panel.collapse))
+  const openedPanelCount = computed(() => openedPanels.value.length)
   const groupStyles = computed(() => ({
     width: cssValue(props.width),
     height: cssValue(props.height),
-    'grid-template-rows': gridTemplateRows.value,
-    'row-gap': props.gap
+    'grid-template-rows': panels.value.map(val => val.collapse ? 'auto' : '1fr').join(' '),
+    'row-gap': cssValue(props.gap)
   }))
   const activePanels = computed({
-    get () {
-      return panels.value.filter(panel => !panel.collapse).map(val => val.name)
-    },
+    get: () => openedPanels.value.map(val => val.name),
     set (val) {
-      if (!Array.isArray(val)) return
+      if (!Array.isArray(val) || !val.length) return
 
       panels.value.forEach(panel => { panel.collapse = !val.includes(panel.name) })
     }
   })
 
   function createPanel (name) {
-    // increment
-    const data = {
-      id: ++sequence,
-      collapse: false,
-      name
-    }
-    panels.value.push(data)
+    const id = ++sequence // increment
+    panels.value.push({ id, name, collapse: false })
 
-    return computed(() => panels.value.find(panel => panel.id === data.id))
-  }
-  function removePanel (id) {
-    panels.value = panels.value.filter(panel => panel.id !== id)
-  }
-  function setCollapse (id, val) {
-    const index = panels.value.findIndex(panel => panel.id === id)
-    if (index !== -1) {
-      panels.value[index].collapse = val
+    const panel = computed(() => panels.value.find(panel => panel.id === id))
+
+    return {
+      panel,
+      switcherDisabled: computed(() => (
+        openedPanelCount.value === 1 && !panel.value.collapse
+      )),
+      destroy: () => (
+        panels.value = panels.value.filter(panel => panel.id !== id)
+      ),
+      setCollapse: (val) => {
+        const panel = panels.value.find(panel => panel.id === id)
+        panel && (panel.collapse = val)
+        emit('update:modelValue', activePanels.value)
+      }
     }
-    emit('update:modelValue', activePanels.value)
   }
 
   watchEffect(() => { activePanels.value = props.modelValue })
@@ -58,12 +53,8 @@ export function usePanelGroup (props, emit) {
   return {
     panels,
     activePanels,
-    panelCount,
-    openedPanelCount,
     groupStyles,
 
-    setCollapse,
-    createPanel,
-    removePanel
+    createPanel
   }
 }
