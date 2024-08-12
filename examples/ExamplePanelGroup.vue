@@ -37,10 +37,11 @@
       </div>
     </div>
     <div class="d-flex">
-      <div class="col-md-6">
+      <div class="me-5">
+        <h4>Set active panels</h4>
         <div
           class=""
-          style="width: 300px;height: 500px;"
+          style="width: 250px;height: 500px;"
         >
           <PanelGroup v-model="activeItems">
             <PanelItem
@@ -86,16 +87,23 @@
           </PanelGroup>
         </div>
       </div>
-      <div class="col-md-6">
+
+      <div class="me-5">
+        <h4>Single panel expansion</h4>
         <div
           class=""
-          style="width: 300px;height: 500px;"
+          style="width: 250px;height: 500px;"
         >
-          <PanelGroup>
+          <PanelGroup :accordion="false">
             <PanelItem
               name="panel1"
               class="border"
             >
+              <template #header>
+                <h3 class="m-0">
+                  标题栏文本
+                </h3>
+              </template>
               <div>内容</div>
             </PanelItem>
             <PanelItem
@@ -119,6 +127,36 @@
                   标题栏文本
                 </h3>
               </template>
+              <div>内容</div>
+            </PanelItem>
+          </PanelGroup>
+        </div>
+      </div>
+
+      <div class="">
+        <h4>No header</h4>
+        <div
+          class=""
+          style="width: 250px;height: 500px;"
+        >
+          <PanelGroup>
+            <PanelItem
+              name="panel1"
+              class="border"
+            >
+              <div>内容</div>
+            </PanelItem>
+            <PanelItem
+              name="panel2"
+              class="border"
+            >
+              <div>内容</div>
+            </PanelItem>
+            <PanelItem
+              name="panel3"
+              class="border"
+              v-if="panel3Visible"
+            >
               <div>内容</div>
             </PanelItem>
           </PanelGroup>

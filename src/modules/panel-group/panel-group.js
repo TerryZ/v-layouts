@@ -3,7 +3,6 @@ import { ref, computed, watchEffect } from 'vue'
 import { cssValue } from '../../helper'
 
 export const panelGroupInjectKey = Symbol('panel-group')
-export const panelItemInjectKey = Symbol('panel-item')
 
 export function usePanelGroup (props, emit) {
   const panels = ref([])
@@ -22,13 +21,16 @@ export function usePanelGroup (props, emit) {
     set (val) {
       if (!Array.isArray(val) || !val.length) return
 
-      panels.value.forEach(panel => { panel.collapse = !val.includes(panel.name) })
+      const active = props.accordion ? val : val[0]
+      panels.value.forEach(panel => { panel.collapse = !active.includes(panel.name) })
     }
   })
 
   function createPanel (name) {
     const id = ++sequence // increment
-    panels.value.push({ id, name, collapse: false })
+    const collapse = !!(!props.modelValue && !props.accordion && panels.value.length)
+
+    panels.value.push({ id, name, collapse })
 
     const panel = computed(() => panels.value.find(panel => panel.id === id))
 
@@ -42,6 +44,10 @@ export function usePanelGroup (props, emit) {
       ),
       setCollapse: (val) => {
         const panel = panels.value.find(panel => panel.id === id)
+        // close all panels
+        if (!props.accordion) {
+          panels.value.forEach(panel => { panel.collapse = true })
+        }
         panel && (panel.collapse = val)
         emit('update:modelValue', activePanels.value)
       }
