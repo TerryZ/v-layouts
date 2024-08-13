@@ -1,6 +1,6 @@
 import '@style/admin-classic.sass'
 
-import { defineComponent, computed, toRefs } from 'vue'
+import { defineComponent, computed } from 'vue'
 
 import { mergeProps, useAdmin } from './admin-base'
 import { cssValue } from '../helper'
@@ -22,21 +22,15 @@ export default defineComponent({
   name: 'AdminClassic',
   props: mergeProps(),
   setup (props, { slots }) {
-    const { collapse } = toRefs(props)
     const {
+      hasHeader,
+      hasAside,
+      hasBreadcrumb,
+      hasFooter,
       contentMainClass,
-      contentContainerClass
-    } = useAdmin(props)
-
-    const hasHeader = computed(() => Object.hasOwn(slots, 'header'))
-    const hasAside = computed(() => Object.hasOwn(slots, 'aside'))
-    const hasBreadcrumb = computed(() => Object.hasOwn(slots, 'breadcrumb'))
-    const hasFooter = computed(() => Object.hasOwn(slots, 'footer'))
-
-    const asideSize = computed(() => hasAside.value
-      ? cssValue(collapse.value ? props.asideCollapsedWidth : props.asideWidth)
-      : ''
-    )
+      contentContainerClass,
+      asideSize
+    } = useAdmin(props, slots)
 
     const chooseSide = () => props.asidePosition === 'left' ? 0 : -1
     const mergeAside = areaName => {
@@ -57,7 +51,10 @@ export default defineComponent({
       ]
 
       const areas = [
-        modulePlaceholder(hasHeader.value, 'header header'),
+        modulePlaceholder(
+          hasHeader.value,
+          `${props.asideFullHeight ? 'aside' : 'header'} header`
+        ),
         modulePlaceholder(hasBreadcrumb.value, mergeAside('breadcrumb')),
         mergeAside('main'),
         modulePlaceholder(hasFooter.value, mergeAside('footer'))
@@ -77,11 +74,9 @@ export default defineComponent({
         {slots.header && (
           <div class='admin-header'>{slots.header()}</div>
         )}
-
         {slots.aside && (
           <div class='admin-aside'>{slots.aside()}</div>
         )}
-
         {slots.breadcrumb && (
           <div class='admin-breadcrumb'>{slots.breadcrumb()}</div>
         )}

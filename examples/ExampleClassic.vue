@@ -34,7 +34,7 @@
         <div>main</div>
       </LayoutAdminClassic>
     </div>
-    <div>
+    <div class="mb-3">
       <button
         type="button"
         class="btn btn-dark me-3"
@@ -49,6 +49,43 @@
       >
         全屏预览
       </button>
+    </div>
+
+    <h4 class="mb-3">
+      Aside full height
+    </h4>
+
+    <div class="mb-3">
+      <LayoutAdminClassic
+        :width="800"
+        :height="500"
+        :collapse="collapse"
+        :aside-collapsed-width="70"
+        aside-full-height
+      >
+        <template #header>
+          <div class="bg-primary text-white h-100 w-100">
+            header
+          </div>
+        </template>
+        <template #aside>
+          <div class="bg-warning h-100 w-100">
+            aside
+          </div>
+        </template>
+        <template #breadcrumb>
+          <div class="bg-success text-white h-100 w-100">
+            breadcrumb
+          </div>
+        </template>
+        <template #footer>
+          <div class="bg-danger text-white h-100 w-100">
+            footer
+          </div>
+        </template>
+
+        <div>main</div>
+      </LayoutAdminClassic>
     </div>
 
     <FullscreenPreview
