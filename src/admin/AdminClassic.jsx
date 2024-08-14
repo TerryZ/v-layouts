@@ -1,4 +1,4 @@
-import '@style/admin-classic.sass'
+import './admin-classic.sass'
 
 import { defineComponent, computed } from 'vue'
 
