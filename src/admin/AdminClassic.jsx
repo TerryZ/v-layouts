@@ -38,7 +38,7 @@ export default defineComponent({
       return areas.join(' ')
     }
     const moduleSize = (condition, size) => condition ? cssValue(size) : ''
-    const modulePlaceholder = (condition, placeholder) => condition ? placeholder : ''
+    const modulePlaceholder = (condition, placeholder) => condition ? placeholder : undefined
 
     const containerStyles = computed(() => {
       const columns = [asideSize.value, 'auto'].sort(chooseSide)
@@ -58,7 +58,7 @@ export default defineComponent({
         modulePlaceholder(hasBreadcrumb.value, mergeAside('breadcrumb')),
         mergeAside('main'),
         modulePlaceholder(hasFooter.value, mergeAside('footer'))
-      ]
+      ].filter(val => val)
 
       return {
         width: cssValue(props.width),

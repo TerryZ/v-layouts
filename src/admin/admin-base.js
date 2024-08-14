@@ -6,14 +6,14 @@ export function mergeProps (props) {
   return {
     width: { type: [String, Number], default: '100vw' },
     height: { type: [String, Number], default: '100vh' },
-    headerHeight: { type: Number, default: 60 },
-    breadcrumbHeight: { type: Number, default: 60 },
-    footerHeight: { type: Number, default: 60 },
+    headerHeight: { type: [String, Number], default: 60 },
+    breadcrumbHeight: { type: [String, Number], default: 60 },
+    footerHeight: { type: [String, Number], default: 60 },
     // Aside collapse state
     collapse: { type: Boolean, default: false },
-    asideWidth: { type: Number, default: 260 },
+    asideWidth: { type: [String, Number], default: 260 },
     // The width of the collapsed sidebar
-    asideCollapsedWidth: { type: Number, default: 70 },
+    asideCollapsedWidth: { type: [String, Number], default: 70 },
     asidePosition: { type: String, default: 'left' },
     asideFullHeight: { type: Boolean, default: false },
     // Main content margin space

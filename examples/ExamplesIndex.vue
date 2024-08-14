@@ -1,66 +1,71 @@
 <template>
-  <div class="d-flex vh-100">
-    <div
-      class="bg-light fw-bold flex-shrink-0"
-      style="width: 18rem;"
-    >
-      <div class="pt-3 pb-4 px-3 d-flex align-items-baseline font-monospace">
-        <div class="fs-3 me-2 lh-1">
-          v-layouts
-        </div>
-        <div class="fs-5 text-muted fw-normal lh-1">
-          examples
-        </div>
-      </div>
-
-      <div class="ps-3 py-3">
-        <h5>Admin layout modules</h5>
-      </div>
+  <LayoutAdminClassic
+    aside-width="18rem"
+    aside-full-height
+  >
+    <template #aside>
       <div
-        class="px-3 pb-4"
-        v-for="item in adminModules"
-        :key="item.key"
+        class="bg-light fw-bold h-100"
+        style=""
       >
-        <router-link
-          class="nav-link"
-          aria-current="page"
-          :class="isActive(item)"
-          :to="item.url"
-          @click="change(item)"
-        >
-          {{ item.name }}
-        </router-link>
-      </div>
+        <div class="pt-3 pb-4 px-3 d-flex align-items-baseline font-monospace">
+          <div class="fs-3 me-2 lh-1">
+            v-layouts
+          </div>
+          <div class="fs-5 text-muted fw-normal lh-1">
+            examples
+          </div>
+        </div>
 
-      <div class="ps-3 py-3">
-        <h5>Other layout modules</h5>
-      </div>
-      <div
-        class="px-3 pb-4"
-        v-for="item in otherModules"
-        :key="item.key"
-      >
-        <router-link
-          class="nav-link"
-          aria-current="page"
-          :class="isActive(item)"
-          :to="item.url"
-          @click="change(item)"
+        <div class="ps-3 py-3">
+          <h5>Admin layout modules</h5>
+        </div>
+        <div
+          class="px-3 pb-4"
+          v-for="item in adminModules"
+          :key="item.key"
         >
-          {{ item.name }}
-        </router-link>
-      </div>
-    </div>
+          <router-link
+            class="nav-link"
+            aria-current="page"
+            :class="isActive(item)"
+            :to="item.url"
+            @click="change(item)"
+          >
+            {{ item.name }}
+          </router-link>
+        </div>
 
-    <div class="p-3 flex-grow-1 overflow-auto">
-      <router-view />
-    </div>
-  </div>
+        <div class="ps-3 py-3">
+          <h5>Other layout modules</h5>
+        </div>
+        <div
+          class="px-3 pb-4"
+          v-for="item in otherModules"
+          :key="item.key"
+        >
+          <router-link
+            class="nav-link"
+            aria-current="page"
+            :class="isActive(item)"
+            :to="item.url"
+            @click="change(item)"
+          >
+            {{ item.name }}
+          </router-link>
+        </div>
+      </div>
+    </template>
+
+    <router-view />
+  </LayoutAdminClassic>
 </template>
 
 <script setup>
 import { ref, onBeforeMount } from 'vue'
 import { useRoute } from 'vue-router'
+
+import { LayoutAdminClassic } from '@/'
 
 const adminModules = [
   { key: 'classic', name: 'Admin Classic', url: '/classic' }

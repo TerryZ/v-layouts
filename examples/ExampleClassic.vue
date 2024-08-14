@@ -31,7 +31,10 @@
           </div>
         </template>
 
-        <div>main</div>
+        <div>
+          main
+          <div style="height: 600px;" />
+        </div>
       </LayoutAdminClassic>
     </div>
     <div class="mb-3">
