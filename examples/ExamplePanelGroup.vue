@@ -50,7 +50,7 @@
             >
               <template #header>
                 <h3 class="m-0">
-                  标题栏文本
+                  标题栏1
                 </h3>
               </template>
               <div style="height: 500px;">
@@ -63,7 +63,7 @@
             >
               <template #header>
                 <h3 class="m-0">
-                  标题栏文本
+                  标题栏2
                 </h3>
               </template>
               <div style="height: 500px;">
@@ -77,7 +77,7 @@
             >
               <template #header>
                 <h3 class="m-0">
-                  标题栏文本
+                  标题栏3
                 </h3>
               </template>
               <div style="height: 500px;">
@@ -109,6 +109,7 @@
             <PanelItem
               name="panel2"
               class="border"
+              destroy-on-collapse
             >
               <template #header>
                 <h3 class="m-0 py-3 ps-3 lh-1 fs-5 fw-semibold text-opacity-75">

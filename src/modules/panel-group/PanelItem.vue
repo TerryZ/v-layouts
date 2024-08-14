@@ -21,7 +21,8 @@
 
     <!-- Panel body -->
     <div
-      v-if="!panel.collapse"
+      v-if="bodyIf"
+      v-show="bodyShow"
       class="panel-item__body"
     >
       <slot :collapse="panel.collapse" />
@@ -38,9 +39,9 @@ import { panelGroupInjectKey } from './panel-group'
 
 const props = defineProps({
   name: { type: String, default: '' },
-  title: { type: String, default: '' },
   switcher: { type: Boolean, default: true },
-  switcherClass: { type: String, default: '' }
+  switcherClass: { type: String, default: '' },
+  destroyOnCollapse: { type: Boolean, default: false }
 })
 const emit = defineEmits(['change'])
 const slots = useSlots()
@@ -48,6 +49,13 @@ const slots = useSlots()
 const { createPanel } = inject(panelGroupInjectKey)
 const { panel, switcherDisabled, destroy, setCollapse } = createPanel(props.name)
 const hasHeader = computed(() => !!slots.header)
+
+const bodyIf = computed(() => (
+  props.destroyOnCollapse ? !panel.value.collapse : true
+))
+const bodyShow = computed(() => (
+  props.destroyOnCollapse ? true : !panel.value.collapse
+))
 
 function changeCollapse (collapse) {
   setCollapse(collapse)
