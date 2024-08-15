@@ -32,6 +32,8 @@ export default defineComponent({
       applyAsideDirection
     } = useAdmin(props, slots)
 
+    const haveHeader = computed(() => !!slots.header)
+
     const composeAside = areaName => gridValue(
       applyAsideDirection([conditionValue(hasAside.value, 'aside'), areaName])
     )
@@ -66,8 +68,12 @@ export default defineComponent({
       }
     })
 
-    return () => (
+    return () => {
+      // TODO: 插槽对象非响应式，需要在 render 函数中获取，即每次重新渲染时获取才会准确
+      console.log(slots.header)
+      return (
       <div class='layout-admin-classic' style={containerStyles.value}>
+        <div>{haveHeader.value.toString()},{hasHeader.value.toString()}</div>
         {slots.header && (
           <div class='admin-header'>{slots.header()}</div>
         )}
@@ -84,6 +90,7 @@ export default defineComponent({
           <div class='admin-footer' >{slots.footer()}</div>
         )}
       </div>
-    )
+      )
+    }
   }
 })

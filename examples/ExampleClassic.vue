@@ -10,7 +10,10 @@
         :collapse="collapse"
         :aside-collapsed-width="70"
       >
-        <template #header>
+        <template
+          #header
+          v-if="header"
+        >
           <div class="bg-primary text-white h-100 w-100">
             header
           </div>
@@ -23,6 +26,13 @@
         <template #breadcrumb>
           <div class="bg-success text-white h-100 w-100">
             breadcrumb
+            <button
+              type="button"
+              class="btn btn-dark"
+              @click="header = !header"
+            >
+              close header
+            </button>
           </div>
         </template>
         <template #footer>
@@ -145,5 +155,5 @@ import { LayoutAdminClassic } from '@/'
 
 const collapse = ref(false)
 const fullscreen = ref(false)
-
+const header = ref(true)
 </script>
