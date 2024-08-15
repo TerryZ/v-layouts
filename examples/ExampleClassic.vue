@@ -58,7 +58,7 @@
       Aside full height
     </h4>
 
-    <div class="mb-3">
+    <div class="">
       <LayoutAdminClassic
         :width="800"
         :height="500"

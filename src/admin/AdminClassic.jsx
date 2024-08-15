@@ -3,7 +3,7 @@ import './admin-classic.sass'
 import { defineComponent, computed } from 'vue'
 
 import { mergeProps, useAdmin } from './admin-base'
-import { cssValue } from '../helper'
+import { cssValue, gridValue, conditionValue } from '../helper'
 /**
  * Admin platform classic layout
  *
@@ -27,45 +27,42 @@ export default defineComponent({
       hasAside,
       hasBreadcrumb,
       hasFooter,
-      contentMainClass,
-      contentContainerClass,
-      asideSize
+      mainClasses,
+      asideSize,
+      applyAsideDirection
     } = useAdmin(props, slots)
 
-    const chooseSide = () => props.asidePosition === 'left' ? 0 : -1
-    const mergeAside = areaName => {
-      const areas = [hasAside.value ? 'aside' : '', areaName].sort(chooseSide)
-      return areas.join(' ')
-    }
-    const moduleSize = (condition, size) => condition ? cssValue(size) : ''
-    const modulePlaceholder = (condition, placeholder) => condition ? placeholder : undefined
+    const composeAside = areaName => gridValue(
+      applyAsideDirection([conditionValue(hasAside.value, 'aside'), areaName])
+    )
 
     const containerStyles = computed(() => {
-      const columns = [asideSize.value, 'auto'].sort(chooseSide)
-
+      // grid-template-columns
+      const columns = applyAsideDirection([asideSize.value, 'auto'])
+      // grid-template-rows
       const rows = [
-        moduleSize(hasHeader.value, props.headerHeight),
-        moduleSize(hasBreadcrumb.value, props.breadcrumbHeight),
+        conditionValue(hasHeader.value, cssValue(props.headerHeight)),
+        conditionValue(hasBreadcrumb.value, cssValue(props.breadcrumbHeight)),
         'auto',
-        moduleSize(hasFooter.value, props.footerHeight)
+        conditionValue(hasFooter.value, cssValue(props.footerHeight))
       ]
-
+      // grid-template-areas
       const areas = [
-        modulePlaceholder(
+        conditionValue(
           hasHeader.value,
           `${props.asideFullHeight ? 'aside' : 'header'} header`
         ),
-        modulePlaceholder(hasBreadcrumb.value, mergeAside('breadcrumb')),
-        mergeAside('main'),
-        modulePlaceholder(hasFooter.value, mergeAside('footer'))
-      ].filter(val => val)
+        conditionValue(hasBreadcrumb.value, composeAside('breadcrumb')),
+        composeAside('main'),
+        conditionValue(hasFooter.value, composeAside('footer'))
+      ].filter(val => val).map(area => `"${area}"`).join(' ')
 
       return {
         width: cssValue(props.width),
         height: cssValue(props.height),
-        'grid-template-columns': columns.join(' '),
-        'grid-template-rows': rows.join(' '),
-        'grid-template-areas': areas.map(area => `"${area}"`).join(' ')
+        'grid-template-columns': gridValue(columns),
+        'grid-template-rows': gridValue(rows),
+        'grid-template-areas': areas
       }
     })
 
@@ -81,11 +78,7 @@ export default defineComponent({
           <div class='admin-breadcrumb'>{slots.breadcrumb()}</div>
         )}
 
-        <div class={contentMainClass.value}>
-          <div class={contentContainerClass.value}>
-            {slots.default?.()}
-          </div>
-        </div>
+        <div class={mainClasses.value}>{slots.default?.()}</div>
 
         {slots.footer && (
           <div class='admin-footer' >{slots.footer()}</div>

@@ -11,3 +11,5 @@ export const [
   'main',
   'footer'
 ]
+
+export const ASIDE_POSITION_LEFT = 'left'

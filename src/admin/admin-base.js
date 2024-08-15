@@ -1,6 +1,7 @@
 import { computed } from 'vue'
 
 import { cssValue } from '../helper'
+import { ASIDE_POSITION_LEFT } from '../constants'
 
 export function mergeProps (props) {
   return {
@@ -16,40 +17,14 @@ export function mergeProps (props) {
     asideCollapsedWidth: { type: [String, Number], default: 70 },
     asidePosition: { type: String, default: 'left' },
     asideFullHeight: { type: Boolean, default: false },
-    // Main content margin space
-    contentMargin: {
-      type: Number,
-      default: 4,
-      validator: val => (val >= 0 && val <= 5)
-    },
-    // Main content area border rounded
-    contentRounded: { type: Boolean, default: false },
-    contentGrayBackground: { type: Boolean, default: true },
-    // Main content area display shadow
-    contentShadow: { type: Boolean, default: true },
+    mainClass: { type: [String, Object, Array], default: '' },
     ...props
   }
 }
 
 export function useAdmin (props, slots) {
-  // 内容区域主容器样式
-  const contentMainClass = computed(() => {
-    const classes = ['admin-main']
-    // 容器与内容区域之间的间隔
-    classes.push(`p-${props.contentMargin}`)
-    classes.push(props.contentGrayBackground ? 'bg-light-gray' : 'bg-white')
-    return classes.join(' ')
-  })
-  // 内容区域子容器样式
-  const contentContainerClass = computed(() => {
-    const classes = ['admin-main-container', 'w-100', 'h-100', 'bg-white']
-    if (props.contentRounded) {
-      classes.push('rounded')
-    }
-    if (props.contentShadow) {
-      classes.push('shadow')
-    }
-    return classes.join(' ')
+  const mainClasses = computed(() => {
+    return ['admin-main', props.mainClass]
   })
 
   const hasHeader = computed(() => Object.hasOwn(slots, 'header'))
@@ -61,8 +36,14 @@ export function useAdmin (props, slots) {
       ? cssValue(
         props.collapse ? props.asideCollapsedWidth : props.asideWidth
       )
-      : ''
+      : undefined
   ))
+  // sidebar in left by default
+  const applyAsideDirection = rowAreas => (
+    props.asidePosition === ASIDE_POSITION_LEFT
+      ? rowAreas
+      : rowAreas.reverse()
+  )
 
   return {
     hasHeader,
@@ -70,7 +51,7 @@ export function useAdmin (props, slots) {
     hasBreadcrumb,
     hasFooter,
     asideSize,
-    contentMainClass,
-    contentContainerClass
+    mainClasses,
+    applyAsideDirection
   }
 }
