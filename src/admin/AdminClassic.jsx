@@ -20,7 +20,7 @@ import { useSlots } from '../layout-base'
  * |---------------------------------|
  */
 export default defineComponent({
-  name: 'AdminClassic',
+  name: 'LayoutAdminClassic',
   props: adminClassicProps(),
   setup (props, { slots }) {
     const {
@@ -30,8 +30,8 @@ export default defineComponent({
 
     return () => {
       const { hasAside, hasHeader, hasBreadcrumb, hasFooter } = useSlots(slots)
-      const composeAside = areaName => gridValue(
-        applyAsideDirection([conditionValue(hasAside, 'aside'), areaName])
+      const composeAside = area => gridValue(
+        applyAsideDirection([conditionValue(hasAside, 'aside'), area])
       )
 
       const containerStyles = computed(() => {
