@@ -2,8 +2,9 @@ import './admin-classic.sass'
 
 import { defineComponent, computed } from 'vue'
 
-import { mergeProps, useAdmin } from './admin-base'
-import { cssValue, gridValue, conditionValue, useSlots } from '../helper'
+import { adminClassicProps, useAdmin } from './admin-base'
+import { cssValue, gridValue, conditionValue } from '../helper'
+import { useSlots } from '../layout-base'
 /**
  * Admin platform classic layout
  *
@@ -20,7 +21,7 @@ import { cssValue, gridValue, conditionValue, useSlots } from '../helper'
  */
 export default defineComponent({
   name: 'AdminClassic',
-  props: mergeProps(),
+  props: adminClassicProps(),
   setup (props, { slots }) {
     const {
       mainClasses,
@@ -33,13 +34,12 @@ export default defineComponent({
         applyAsideDirection([conditionValue(hasAside, 'aside'), areaName])
       )
 
-      const asideSize = computed(() => conditionValue(hasAside, cssValue(
-        props.collapse ? props.asideCollapsedWidth : props.asideWidth
-      )))
-
       const containerStyles = computed(() => {
         // grid-template-columns
-        const columns = applyAsideDirection([asideSize.value, 'auto'])
+        const columns = applyAsideDirection([
+          conditionValue(hasAside, cssValue(props.asideWidth)),
+          'auto'
+        ])
         // grid-template-rows
         const rows = [
           conditionValue(hasHeader, cssValue(props.headerHeight)),

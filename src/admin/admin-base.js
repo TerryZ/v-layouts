@@ -2,24 +2,15 @@ import { computed } from 'vue'
 
 // import { cssValue } from '../helper'
 import { ASIDE_POSITION_LEFT } from '../constants'
+import { mergeProps } from '../layout-base'
 
-export function mergeProps (props) {
-  return {
-    width: { type: [String, Number], default: '100vw' },
-    height: { type: [String, Number], default: '100vh' },
-    headerHeight: { type: [String, Number], default: 60 },
+export function adminClassicProps () {
+  return mergeProps({
     breadcrumbHeight: { type: [String, Number], default: 60 },
-    footerHeight: { type: [String, Number], default: 60 },
-    // Aside collapse state
-    collapse: { type: Boolean, default: false },
     asideWidth: { type: [String, Number], default: 260 },
-    // The width of the collapsed sidebar
-    asideCollapsedWidth: { type: [String, Number], default: 70 },
     asidePosition: { type: String, default: 'left' },
-    asideFullHeight: { type: Boolean, default: false },
-    mainClass: { type: [String, Object, Array], default: '' },
-    ...props
-  }
+    asideFullHeight: { type: Boolean, default: false }
+  })
 }
 
 export function useAdmin (props, slots) {

@@ -15,11 +15,3 @@ export function gridValue (values, map) {
 export function conditionValue (condition, value) {
   return condition ? value : undefined
 }
-export function useSlots (slots) {
-  return {
-    hasHeader: slots.header,
-    hasAside: slots.aside,
-    hasBreadcrumb: slots.breadcrumb,
-    hasFooter: slots.footer
-  }
-}

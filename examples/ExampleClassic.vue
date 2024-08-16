@@ -38,8 +38,7 @@
       <LayoutAdminClassic
         :width="800"
         :height="500"
-        :collapse="collapse"
-        :aside-collapsed-width="70"
+        :aside-width="asideWidth"
       >
         <template
           #header
@@ -182,11 +181,12 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import FullscreenPreview from './FullscreenPreview.vue'
 import { LayoutAdminClassic } from '@/'
 
 const collapse = ref(false)
+const asideWidth = computed(() => collapse.value ? 70 : 200)
 const fullscreen = ref(false)
 
 const header = ref(true)
