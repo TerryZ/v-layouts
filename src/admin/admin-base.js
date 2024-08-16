@@ -1,6 +1,6 @@
 import { computed } from 'vue'
 
-import { cssValue } from '../helper'
+// import { cssValue } from '../helper'
 import { ASIDE_POSITION_LEFT } from '../constants'
 
 export function mergeProps (props) {
@@ -27,17 +27,6 @@ export function useAdmin (props, slots) {
     return ['admin-main', props.mainClass]
   })
 
-  const hasHeader = computed(() => Object.hasOwn(slots, 'header'))
-  const hasAside = computed(() => Object.hasOwn(slots, 'aside'))
-  const hasBreadcrumb = computed(() => Object.hasOwn(slots, 'breadcrumb'))
-  const hasFooter = computed(() => Object.hasOwn(slots, 'footer'))
-  const asideSize = computed(() => (
-    hasAside.value
-      ? cssValue(
-        props.collapse ? props.asideCollapsedWidth : props.asideWidth
-      )
-      : undefined
-  ))
   // sidebar in left by default
   const applyAsideDirection = rowAreas => (
     props.asidePosition === ASIDE_POSITION_LEFT
@@ -46,11 +35,6 @@ export function useAdmin (props, slots) {
   )
 
   return {
-    hasHeader,
-    hasAside,
-    hasBreadcrumb,
-    hasFooter,
-    asideSize,
     mainClasses,
     applyAsideDirection
   }

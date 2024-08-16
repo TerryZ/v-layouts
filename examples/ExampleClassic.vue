@@ -4,6 +4,37 @@
       Admin classic layout
     </h4>
     <div class="mb-3">
+      Toggle visible
+      <button
+        type="button"
+        class="btn btn-dark mx-3"
+        @click="header = !header"
+      >
+        close header
+      </button>
+      <button
+        type="button"
+        class="btn btn-dark me-3"
+        @click="aside = !aside"
+      >
+        close aside
+      </button>
+      <button
+        type="button"
+        class="btn btn-dark me-3"
+        @click="breadcrumb = !breadcrumb"
+      >
+        close breadcrumb
+      </button>
+      <button
+        type="button"
+        class="btn btn-dark me-3"
+        @click="footer = !footer"
+      >
+        close footer
+      </button>
+    </div>
+    <div class="mb-3">
       <LayoutAdminClassic
         :width="800"
         :height="500"
@@ -18,24 +49,26 @@
             header
           </div>
         </template>
-        <template #aside>
+        <template
+          #aside
+          v-if="aside"
+        >
           <div class="bg-warning h-100 w-100">
             aside
           </div>
         </template>
-        <template #breadcrumb>
+        <template
+          #breadcrumb
+          v-if="breadcrumb"
+        >
           <div class="bg-success text-white h-100 w-100">
             breadcrumb
-            <button
-              type="button"
-              class="btn btn-dark"
-              @click="header = !header"
-            >
-              close header
-            </button>
           </div>
         </template>
-        <template #footer>
+        <template
+          #footer
+          v-if="footer"
+        >
           <div class="bg-danger text-white h-100 w-100">
             footer
           </div>
@@ -155,5 +188,9 @@ import { LayoutAdminClassic } from '@/'
 
 const collapse = ref(false)
 const fullscreen = ref(false)
+
 const header = ref(true)
+const aside = ref(true)
+const breadcrumb = ref(true)
+const footer = ref(true)
 </script>

@@ -7,10 +7,19 @@ export function cssValue (value, unit = 'px') {
 /**
  * Parse to css grid template value
  * @param {string[]} values
+ * @param {function} map
  */
-export function gridValue (values) {
-  return values.filter(val => val).join(' ')
+export function gridValue (values, map) {
+  return values.filter(val => val).map(map || (val => val)).join(' ')
 }
 export function conditionValue (condition, value) {
   return condition ? value : undefined
+}
+export function useSlots (slots) {
+  return {
+    hasHeader: slots.header,
+    hasAside: slots.aside,
+    hasBreadcrumb: slots.breadcrumb,
+    hasFooter: slots.footer
+  }
 }
