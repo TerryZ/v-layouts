@@ -9,8 +9,8 @@ export const [
 ] = [
   'header',
   'aside',
-  'asidePrimary',
-  'asideSecondary',
+  'primary-aside',
+  'secondary-aside',
   'breadcrumb',
   'main',
   'footer'

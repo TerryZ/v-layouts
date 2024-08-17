@@ -3,7 +3,7 @@
     <h4 class="mb-3">
       Content press layout
     </h4>
-    <div class="mb-3">
+    <div class="mb-3 d-flex">
       Toggle visible
       <button
         type="button"
@@ -15,16 +15,16 @@
       <button
         type="button"
         class="btn btn-dark me-3"
-        @click="aside = !aside"
+        @click="asidePrimary = !asidePrimary"
       >
-        close aside
+        close primary aside
       </button>
       <button
         type="button"
         class="btn btn-dark me-3"
-        @click="breadcrumb = !breadcrumb"
+        @click="asideSecondary = !asideSecondary"
       >
-        close breadcrumb
+        close secondary aside
       </button>
       <button
         type="button"
@@ -33,20 +33,29 @@
       >
         close footer
       </button>
-      <button
-        type="button"
-        class="btn btn-dark me-3"
-        @click="changeAsidePosition"
-      >
-        change aside position
-      </button>
+      <div style="width: 200px;">
+        <select
+          class="form-select"
+          v-model="mainPosition"
+        >
+          <option value="left">
+            left
+          </option>
+          <option value="center">
+            center
+          </option>
+          <option value="right">
+            right
+          </option>
+        </select>
+      </div>
     </div>
     <div class="mb-3">
-      <LayoutAdminClassic
+      <LayoutContentPress
         :width="800"
         :height="500"
         :aside-width="asideWidth"
-        :aside-position="asidePosition"
+        :main-position="mainPosition"
       >
         <template
           #header
@@ -57,19 +66,19 @@
           </div>
         </template>
         <template
-          #aside
-          v-if="aside"
+          #primaryAside
+          v-if="asidePrimary"
         >
           <div class="bg-warning h-100 w-100">
-            aside
+            aside primary
           </div>
         </template>
         <template
-          #breadcrumb
-          v-if="breadcrumb"
+          #secondaryAside
+          v-if="asideSecondary"
         >
           <div class="bg-success text-white h-100 w-100">
-            breadcrumb
+            aside secondary
           </div>
         </template>
         <template
@@ -85,7 +94,7 @@
           main
           <div style="height: 600px;" />
         </div>
-      </LayoutAdminClassic>
+      </LayoutContentPress>
     </div>
     <div class="mb-3">
       <button
@@ -109,11 +118,9 @@
     </h4>
 
     <div class="">
-      <LayoutAdminClassic
+      <LayoutContentPress
         :width="800"
         :height="500"
-        :collapse="collapse"
-        :aside-collapsed-width="70"
         aside-full-height
       >
         <template #header>
@@ -138,31 +145,27 @@
         </template>
 
         <div>main</div>
-      </LayoutAdminClassic>
+      </LayoutContentPress>
     </div>
 
     <FullscreenPreview
       v-if="fullscreen"
       @exit="fullscreen = false"
     >
-      <LayoutAdminClassic
-        :collapse="collapse"
-        :aside-collapsed-width="70"
-        aside-position="right"
-      >
+      <LayoutContentPress>
         <template #header>
           <div class="bg-primary text-white h-100 w-100">
             header
           </div>
         </template>
-        <template #aside>
+        <template #primaryAside>
           <div class="bg-warning h-100 w-100">
-            aside
+            primary aside
           </div>
         </template>
-        <template #breadcrumb>
+        <template #secondaryAside>
           <div class="bg-success text-white h-100 w-100">
-            breadcrumb
+            secondary aside
           </div>
         </template>
         <template #footer>
@@ -183,7 +186,7 @@
             </button>
           </div>
         </div>
-      </LayoutAdminClassic>
+      </LayoutContentPress>
     </FullscreenPreview>
   </div>
 </template>
@@ -191,19 +194,19 @@
 <script setup>
 import { ref, computed } from 'vue'
 import FullscreenPreview from './FullscreenPreview.vue'
-import { LayoutAdminClassic } from '@/'
+import { LayoutContentPress } from '@/'
 
 const collapse = ref(false)
 const asideWidth = computed(() => collapse.value ? 70 : 200)
-const asidePosition = ref('right')
+const mainPosition = ref('center')
 const fullscreen = ref(false)
 
 const header = ref(true)
-const aside = ref(true)
-const breadcrumb = ref(true)
+const asidePrimary = ref(true)
+const asideSecondary = ref(true)
 const footer = ref(true)
 
-function changeAsidePosition () {
-  asidePosition.value = asidePosition.value === 'left' ? 'right' : 'left'
-}
+// function changeAsidePosition () {
+//   asidePosition.value = asidePosition.value === 'left' ? 'right' : 'left'
+// }
 </script>
