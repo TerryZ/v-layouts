@@ -17,12 +17,15 @@
           </div>
         </div>
 
-        <div class="ps-3 py-3">
-          <h5>Admin layout modules</h5>
+        <div class="ps-3 pt-3">
+          <h5 class="m-0">
+            layout modules
+          </h5>
         </div>
+        <hr class="border opacity-50 mx-3">
         <div
-          class="px-3 pb-4"
-          v-for="item in adminModules"
+          class="px-3 pb-3"
+          v-for="item in layoutModules"
           :key="item.key"
         >
           <router-link
@@ -39,6 +42,7 @@
         <div class="ps-3 py-3">
           <h5>Other layout modules</h5>
         </div>
+        <hr class="border opacity-50 mx-3">
         <div
           class="px-3 pb-4"
           v-for="item in otherModules"
@@ -69,8 +73,9 @@ import { useRoute } from 'vue-router'
 
 import { LayoutAdminClassic } from '@/'
 
-const adminModules = [
-  { key: 'classic', name: 'Admin Classic', url: '/classic' }
+const layoutModules = [
+  { key: 'admin-classic', name: 'Admin Classic', url: '/admin-classic' },
+  { key: 'content-press', name: 'Content press', url: '/content-press' }
 ]
 const otherModules = [
   { key: 'panel-group', name: 'Panel group', url: '/panel-group' }
@@ -81,7 +86,7 @@ function isActive (item) {
   if (active.value && active.value === item.key) {
     return 'text-dark fw-bold'
   }
-  return 'text-secondary text-opacity-50'
+  return 'text-secondary text-opacity-25'
 }
 function change (item) {
   active.value = item.key
@@ -89,7 +94,7 @@ function change (item) {
 
 onBeforeMount(() => {
   const route = useRoute()
-  const allModules = [...adminModules, ...otherModules]
+  const allModules = [...layoutModules, ...otherModules]
   const module = allModules.find(val => val.url === route.path)
   if (module) {
     active.value = module.key

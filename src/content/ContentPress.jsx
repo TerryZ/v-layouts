@@ -1,9 +1,9 @@
 import './content-press.sass'
 
-import { defineComponent, computed } from 'vue'
+import { defineComponent } from 'vue'
 
-import { contentPressProps } from './content-press'
-import { cssValue, gridValue, conditionValue, useSlots } from '../helper'
+import { contentPressProps, useContentPress } from './content-press'
+import { useSlots } from '../layout-base'
 
 /**
  * Content press layout
@@ -22,6 +22,8 @@ export default defineComponent({
   name: 'LayoutContentPress',
   props: contentPressProps(),
   setup (props, { slots }) {
+    const { mainClasses, getContainerStyles } = useContentPress(props, slots)
+
     return () => {
       const {
         hasHeader,
@@ -30,8 +32,10 @@ export default defineComponent({
         hasSecondaryAside
       } = useSlots(slots)
 
+      const containerStyles = getContainerStyles()
+
       return (
-        <div class='layout-content-press' style={containerStyles.value}>
+        <div class='layout-content-press' style={containerStyles}>
           {hasHeader && (
             <div class='content-header'>{slots.header()}</div>
           )}

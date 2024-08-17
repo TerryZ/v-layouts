@@ -5,7 +5,8 @@ const routes = [
     path: '/',
     component: () => import('./ExamplesIndex.vue'),
     children: [
-      { path: '/classic', component: () => import('./ExampleClassic.vue') },
+      { path: '/admin-classic', component: () => import('./ExampleAdminClassic.vue') },
+      { path: '/content-press', component: () => import('./ExampleContentPress.vue') },
       { path: '/panel-group', component: () => import('./ExamplePanelGroup.vue') }
     ]
   }

@@ -10,8 +10,11 @@ export function cssValue (value, unit = 'px') {
  * @param {function} map
  */
 export function gridValue (values, map) {
-  return values.filter(val => val).map(map || (val => val)).join(' ')
+  return onlyAvailable(values).map(map || (val => val)).join(' ')
 }
 export function conditionValue (condition, value) {
   return condition ? value : undefined
+}
+export function onlyAvailable (list) {
+  return list.filter(item => item)
 }
