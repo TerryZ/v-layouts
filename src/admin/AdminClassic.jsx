@@ -1,9 +1,8 @@
 import './admin-classic.sass'
 
-import { defineComponent, computed } from 'vue'
+import { defineComponent } from 'vue'
 
-import { adminClassicProps, useAdmin } from './admin-base'
-import { cssValue, gridValue, conditionValue } from '../helper'
+import { adminClassicProps, useAdmin } from './admin-classic'
 import { useSlots } from '../layout-base'
 /**
  * Admin platform classic layout
@@ -25,53 +24,15 @@ export default defineComponent({
   setup (props, { slots }) {
     const {
       mainClasses,
-      applyAsideDirection
+      getContainerStyles
     } = useAdmin(props, slots)
 
     return () => {
       const { hasAside, hasHeader, hasBreadcrumb, hasFooter } = useSlots(slots)
-      const composeAside = area => gridValue(
-        applyAsideDirection([conditionValue(hasAside, 'aside'), area])
-      )
-
-      const containerStyles = computed(() => {
-        // grid-template-columns
-        const columns = applyAsideDirection([
-          conditionValue(hasAside, cssValue(props.asideWidth)),
-          'auto'
-        ])
-        // grid-template-rows
-        const rows = [
-          conditionValue(hasHeader, cssValue(props.headerHeight)),
-          conditionValue(hasBreadcrumb, cssValue(props.breadcrumbHeight)),
-          'auto',
-          conditionValue(hasFooter, cssValue(props.footerHeight))
-        ]
-        // grid-template-areas
-        const headerAside = conditionValue(
-          hasAside, props.asideFullHeight ? 'aside' : 'header'
-        )
-        const areas = [
-          conditionValue(
-            hasHeader,
-            gridValue(applyAsideDirection([headerAside, 'header']))
-          ),
-          conditionValue(hasBreadcrumb, composeAside('breadcrumb')),
-          composeAside('main'),
-          conditionValue(hasFooter, composeAside('footer'))
-        ]
-
-        return {
-          width: cssValue(props.width),
-          height: cssValue(props.height),
-          'grid-template-columns': gridValue(columns),
-          'grid-template-rows': gridValue(rows),
-          'grid-template-areas': gridValue(areas, area => `"${area}"`)
-        }
-      })
+      const containerStyles = getContainerStyles()
 
       return (
-        <div class='layout-admin-classic' style={containerStyles.value}>
+        <div class='layout-admin-classic' style={containerStyles}>
           {hasHeader && (
             <div class='admin-header'>{slots.header()}</div>
           )}

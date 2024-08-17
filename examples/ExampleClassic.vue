@@ -33,12 +33,20 @@
       >
         close footer
       </button>
+      <button
+        type="button"
+        class="btn btn-dark me-3"
+        @click="changeAsidePosition"
+      >
+        change aside position
+      </button>
     </div>
     <div class="mb-3">
       <LayoutAdminClassic
         :width="800"
         :height="500"
         :aside-width="asideWidth"
+        :aside-position="asidePosition"
       >
         <template
           #header
@@ -187,10 +195,15 @@ import { LayoutAdminClassic } from '@/'
 
 const collapse = ref(false)
 const asideWidth = computed(() => collapse.value ? 70 : 200)
+const asidePosition = ref('right')
 const fullscreen = ref(false)
 
 const header = ref(true)
 const aside = ref(true)
 const breadcrumb = ref(true)
 const footer = ref(true)
+
+function changeAsidePosition () {
+  asidePosition.value = asidePosition.value === 'left' ? 'right' : 'left'
+}
 </script>
