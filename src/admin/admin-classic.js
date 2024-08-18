@@ -5,7 +5,7 @@ import {
   ASIDE_POSITION_LEFT,
   ASIDE, BREADCRUMB, FOOTER, HEADER, MAIN
 } from '../constants'
-import { cssValue, gridValue, conditionValue } from '../helper'
+import { cssValue, gridValue, conditionValue, onlyAvailable } from '../helper'
 import { mergeProps, useSlots } from '../layout-base'
 
 export function adminClassicProps () {
@@ -50,15 +50,14 @@ export function useAdmin (props, slots) {
       hasAside, props.asideFullHeight ? ASIDE : HEADER
     )
     const asideArea = conditionValue(hasAside, ASIDE)
-    const verifyRow = ([available, ...areaRow]) => available ? areaRow : []
-    const areas = [
-      [hasHeader, headerAside, HEADER],
-      [hasBreadcrumb, asideArea, BREADCRUMB],
-      [true, asideArea, MAIN],
-      [hasFooter, asideArea, FOOTER]
-    ].map(verifyRow).filter(area => area.length)
-    const areaRowTransform = areaRow => (
-      `"${applyAsideDirection(areaRow).join(' ')}"`
+
+    const areas = [[asideArea, MAIN]]
+    if (hasBreadcrumb) areas.unshift([asideArea, BREADCRUMB])
+    if (hasHeader) areas.unshift([headerAside, HEADER])
+    if (hasFooter) areas.push([asideArea, FOOTER])
+
+    const parseAreaRow = row => (
+      `"${onlyAvailable(applyAsideDirection(row)).join(' ')}"`
     )
 
     return {
@@ -66,7 +65,7 @@ export function useAdmin (props, slots) {
       height: cssValue(props.height),
       'grid-template-columns': gridValue(columns),
       'grid-template-rows': gridValue(rows),
-      'grid-template-areas': gridValue(areas, areaRowTransform)
+      'grid-template-areas': gridValue(areas, parseAreaRow)
     }
   }
 
