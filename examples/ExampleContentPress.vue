@@ -54,7 +54,7 @@
       <LayoutContentPress
         :width="800"
         :height="500"
-        :aside-width="asideWidth"
+        :primary-aside-width="asideWidth"
         :main-position="mainPosition"
       >
         <template
@@ -113,41 +113,6 @@
       </button>
     </div>
 
-    <h4 class="mb-3">
-      Aside full height
-    </h4>
-
-    <div class="">
-      <LayoutContentPress
-        :width="800"
-        :height="500"
-        aside-full-height
-      >
-        <template #header>
-          <div class="bg-primary text-white h-100 w-100">
-            header
-          </div>
-        </template>
-        <template #aside>
-          <div class="bg-warning h-100 w-100">
-            aside
-          </div>
-        </template>
-        <template #breadcrumb>
-          <div class="bg-success text-white h-100 w-100">
-            breadcrumb
-          </div>
-        </template>
-        <template #footer>
-          <div class="bg-danger text-white h-100 w-100">
-            footer
-          </div>
-        </template>
-
-        <div>main</div>
-      </LayoutContentPress>
-    </div>
-
     <FullscreenPreview
       v-if="fullscreen"
       @exit="fullscreen = false"
@@ -176,15 +141,6 @@
 
         <div>
           main
-          <div>
-            <button
-              type="button"
-              class="btn btn-dark me-3"
-              @click="collapse = !collapse"
-            >
-              收起/展开侧边栏
-            </button>
-          </div>
         </div>
       </LayoutContentPress>
     </FullscreenPreview>
@@ -197,7 +153,7 @@ import FullscreenPreview from './FullscreenPreview.vue'
 import { LayoutContentPress } from '@/'
 
 const collapse = ref(false)
-const asideWidth = computed(() => collapse.value ? 70 : 200)
+const asideWidth = computed(() => collapse.value ? 100 : 300)
 const mainPosition = ref('center')
 const fullscreen = ref(false)
 

@@ -42,6 +42,7 @@ export function useContentPress (props, slots) {
       conditionValue(hasSecondaryAside, cssValue(props.secondaryAsideWidth))
     ]
     columns = columns.toSpliced(mainPositionIndex, 0, 'auto')
+
     const columnCount = onlyAvailable(columns).length
     // grid-template-rows
     const rows = [
@@ -49,27 +50,26 @@ export function useContentPress (props, slots) {
       'auto',
       conditionValue(hasFooter, cssValue(props.footerHeight))
     ]
-
     // grid-template-areas
+    const headerRow = Array(columnCount).fill(HEADER)
+    const footerRow = Array(columnCount).fill(FOOTER)
     let mainRow = [
       conditionValue(hasPrimaryAside, ASIDE_PRIMARY),
       conditionValue(hasSecondaryAside, ASIDE_SECONDARY)
     ]
     mainRow = mainRow.toSpliced(mainPositionIndex, 0, MAIN)
-    const verifyRow = ([available, ...areaRow]) => available ? areaRow : []
-    const areas = [
-      [hasHeader, ...Array(columnCount).fill(HEADER)],
-      [true, ...mainRow],
-      [hasFooter, ...Array(columnCount).fill(FOOTER)]
-    ].map(verifyRow).filter(area => area.length)
-    const areaRowTransform = areaRow => `"${areaRow.join(' ')}"`
+
+    const areas = [mainRow]
+    if (hasHeader) areas.unshift(headerRow)
+    if (hasFooter) areas.push(footerRow)
+    const parseAreaRow = row => `"${onlyAvailable(row).join(' ')}"`
 
     return {
       width: cssValue(props.width),
       height: cssValue(props.height),
       'grid-template-columns': gridValue(columns),
       'grid-template-rows': gridValue(rows),
-      'grid-template-areas': gridValue(areas, areaRowTransform)
+      'grid-template-areas': gridValue(areas, parseAreaRow)
     }
   }
   return {

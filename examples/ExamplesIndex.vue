@@ -39,7 +39,7 @@
           </router-link>
         </div>
 
-        <div class="ps-3 py-3">
+        <div class="ps-3 pt-3">
           <h5>Other layout modules</h5>
         </div>
         <hr class="border opacity-50 mx-3">
