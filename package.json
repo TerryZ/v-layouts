@@ -38,6 +38,8 @@
     "front-end",
     "vue",
     "layout",
+    "admin-layout",
+    "content-layout",
     "panel-group"
   ],
   "peerDependencies": {

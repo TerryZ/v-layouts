@@ -33,12 +33,21 @@
       >
         close footer
       </button>
+    </div>
+    <div class="mb-3">
       <button
         type="button"
         class="btn btn-dark me-3"
         @click="changeAsidePosition"
       >
         change aside position
+      </button>
+      <button
+        type="button"
+        class="btn btn-dark me-3"
+        @click="asideFullHeight = !asideFullHeight"
+      >
+        change aside full height
       </button>
     </div>
     <div class="mb-3">
@@ -47,6 +56,7 @@
         :height="500"
         :aside-width="asideWidth"
         :aside-position="asidePosition"
+        :aside-full-height="asideFullHeight"
       >
         <template
           #header
@@ -112,7 +122,6 @@
       <LayoutAdminClassic
         :width="800"
         :height="500"
-        :collapse="collapse"
         :aside-collapsed-width="70"
         aside-full-height
       >
@@ -197,6 +206,7 @@ const collapse = ref(false)
 const asideWidth = computed(() => collapse.value ? 70 : 200)
 const asidePosition = ref('right')
 const fullscreen = ref(false)
+const asideFullHeight = ref(false)
 
 const header = ref(true)
 const aside = ref(true)
