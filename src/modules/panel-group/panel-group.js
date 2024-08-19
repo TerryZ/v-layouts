@@ -9,7 +9,6 @@ export function usePanelGroup (props, emit) {
   let sequence = 0
 
   const openedPanels = computed(() => panels.value.filter(panel => !panel.collapse))
-  const openedPanelCount = computed(() => openedPanels.value.length)
   const groupStyles = computed(() => ({
     width: cssValue(props.width),
     height: cssValue(props.height),
@@ -26,7 +25,7 @@ export function usePanelGroup (props, emit) {
     }
   })
 
-  function createPanel (name) {
+  const createPanel = name => {
     const id = ++sequence // increment
     const collapse = !!(!props.modelValue && !props.accordion && panels.value.length)
 
@@ -37,12 +36,12 @@ export function usePanelGroup (props, emit) {
     return {
       panel,
       switcherDisabled: computed(() => (
-        openedPanelCount.value === 1 && !panel.value.collapse
+        openedPanels.value.length === 1 && !panel.value.collapse
       )),
       destroy: () => (
         panels.value = panels.value.filter(panel => panel.id !== id)
       ),
-      setCollapse: (val) => {
+      setCollapse: val => {
         const panel = panels.value.find(panel => panel.id === id)
         // close all panels
         if (!props.accordion) {

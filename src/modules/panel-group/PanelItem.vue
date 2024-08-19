@@ -1,9 +1,8 @@
 <template>
   <div :class="['panel-item', { 'panel-item--collapsed': panel.collapse }]">
-    <!-- Panel header -->
     <div
       class="panel-item__header"
-      v-if="hasHeader"
+      v-if="$slots.header"
     >
       <slot
         name="header"
@@ -19,7 +18,6 @@
       />
     </div>
 
-    <!-- Panel body -->
     <div
       v-if="bodyIf"
       v-show="bodyShow"
@@ -31,7 +29,7 @@
 </template>
 
 <script setup>
-import { computed, inject, onUnmounted, useSlots } from 'vue'
+import { computed, inject, onUnmounted } from 'vue'
 
 import PanelSwitcher from './PanelSwitcher.vue'
 
@@ -44,11 +42,9 @@ const props = defineProps({
   destroyOnCollapse: { type: Boolean, default: false }
 })
 const emit = defineEmits(['change'])
-const slots = useSlots()
 
 const { createPanel } = inject(panelGroupInjectKey)
 const { panel, switcherDisabled, destroy, setCollapse } = createPanel(props.name)
-const hasHeader = computed(() => !!slots.header)
 
 const bodyIf = computed(() => (
   props.destroyOnCollapse ? !panel.value.collapse : true

@@ -135,7 +135,16 @@
       </div>
 
       <div class="">
-        <h4>No header</h4>
+        <h4>
+          No header
+          <button
+            type="button"
+            class="btn btn-link"
+            @click="header = !header"
+          >
+            toggle header
+          </button>
+        </h4>
         <div
           class=""
           style="width: 250px;height: 500px;"
@@ -145,6 +154,14 @@
               name="panel1"
               class="border"
             >
+              <template
+                #header
+                v-if="header"
+              >
+                <h3 class="m-0">
+                  Header
+                </h3>
+              </template>
               <div>内容</div>
             </PanelItem>
             <PanelItem
@@ -176,4 +193,5 @@ import {
 
 const activeItems = ref(['panel2'])
 const panel3Visible = ref(true)
+const header = ref(true)
 </script>
