@@ -2,7 +2,7 @@ import { describe, test, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
 
 import { LayoutAdminClassic } from '@/'
-import ConditionRender from './ConditionRender.vue'
+import ConditionRender from './AdminClassicConditionRender.vue'
 
 describe('Admin classic layout', () => {
   describe('默认情况', () => {
@@ -54,7 +54,7 @@ describe('Admin classic layout', () => {
     test('应用网格布局的列应为 2 列，宽度均应用默认值', () => {
       expect(container.element.style['grid-template-columns']).toBe('260px auto')
     })
-    test('应用网格布局的行应为 4 行，宽度均应用默认值', () => {
+    test('应用网格布局的行应为 4 行，高度均应用默认值', () => {
       expect(container.element.style['grid-template-rows']).toBe('60px 60px auto 60px')
     })
     test('应用网格布局默认区域模板', () => {

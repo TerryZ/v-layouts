@@ -37,11 +37,11 @@ export function useContentPress (props, slots) {
     const mainPositionIndex = getMainPositionIndex(props.mainPosition)
 
     // grid-template-columns
-    let columns = [
+    const columns = [
       conditionValue(hasPrimaryAside, cssValue(props.primaryAsideWidth)),
       conditionValue(hasSecondaryAside, cssValue(props.secondaryAsideWidth))
     ]
-    columns = columns.toSpliced(mainPositionIndex, 0, 'auto')
+    columns.splice(mainPositionIndex, 0, 'auto')
 
     const columnCount = onlyAvailable(columns).length
     // grid-template-rows
@@ -53,11 +53,11 @@ export function useContentPress (props, slots) {
     // grid-template-areas
     const headerRow = Array(columnCount).fill(HEADER)
     const footerRow = Array(columnCount).fill(FOOTER)
-    let mainRow = [
+    const mainRow = [
       conditionValue(hasPrimaryAside, ASIDE_PRIMARY),
       conditionValue(hasSecondaryAside, ASIDE_SECONDARY)
     ]
-    mainRow = mainRow.toSpliced(mainPositionIndex, 0, MAIN)
+    mainRow.splice(mainPositionIndex, 0, MAIN)
 
     const areas = [mainRow]
     if (hasHeader) areas.unshift(headerRow)
