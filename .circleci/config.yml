@@ -6,7 +6,7 @@ version: 2
 jobs:
   build:
     branches:
-      only: master
+      only: main
 
     docker:
       # specify the version you desire here
@@ -16,6 +16,9 @@ jobs:
       # CircleCI maintains a library of pre-built images
       # documented at https://circleci.com/docs/2.0/circleci-images/
       # - image: circleci/mongo:3.4.4
+
+    environment:
+      name: production
 
     working_directory: ~/repo
 
@@ -40,4 +43,4 @@ jobs:
 
       # run tests!
       - run: npm run coverage
-      - run: codecov
+      - run: codecov upload-process -t $CODE_COV_TOKEN
