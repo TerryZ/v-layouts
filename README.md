@@ -14,10 +14,6 @@ Documentation and examples please visit below sites
 
 - [Github pages](https://terryz.github.io/docs-vue3/layout/)
 
-## Features
-
-- Useful layout
-
 ### Layout and modules diagram
 
 admin classic layout
@@ -69,5 +65,30 @@ pnpm add v-layouts
 
 <script setup>
 import { LayoutAdminClassic } from 'v-layouts'
+</script>
+```
+
+### Panel group
+
+```vue
+<template>
+  <PanelGroup>
+    <PanelItem name="panel1">
+      <template #header>
+      panel 1 header
+      </template>
+      panel 1 content
+    </PanelItem>
+    <PanelItem name="panel2">
+      <template #header>
+      panel 1 header
+      </template>
+      panel 1 content
+    </PanelItem>
+  </PanelGroup>
+</template>
+
+<script setup>
+import { PanelGroup, PanelItem } from 'v-layouts'
 </script>
 ```
