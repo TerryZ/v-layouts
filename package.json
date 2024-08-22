@@ -1,7 +1,7 @@
 {
   "name": "v-layouts",
   "description": "Web page layout collection for Vue3",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "author": "TerryZ <terry5@foxmail.com>",
   "type": "module",
   "files": [
