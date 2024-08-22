@@ -81,9 +81,9 @@ import { LayoutAdminClassic } from 'v-layouts'
     </PanelItem>
     <PanelItem name="panel2">
       <template #header>
-      panel 1 header
+      panel 2 header
       </template>
-      panel 1 content
+      panel 2 content
     </PanelItem>
   </PanelGroup>
 </template>
