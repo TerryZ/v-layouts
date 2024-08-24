@@ -94,7 +94,7 @@
           class=""
           style="width: 250px;height: 500px;"
         >
-          <PanelGroup :accordion="false">
+          <PanelGroup accordion>
             <PanelItem
               name="panel1"
               class="border"

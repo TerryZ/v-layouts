@@ -20,14 +20,15 @@ export function usePanelGroup (props, emit) {
     set (val) {
       if (!Array.isArray(val) || !val.length) return
 
-      const active = props.accordion ? val : val[0]
+      const active = props.accordion ? val[0] : val
       panels.value.forEach(panel => { panel.collapse = !active.includes(panel.name) })
     }
   })
 
   const createPanel = name => {
     const id = ++sequence // increment
-    const collapse = !!(!props.modelValue && !props.accordion && panels.value.length)
+    // In accordion mode, only one panel can be opened at a time
+    const collapse = !!(props.accordion && !props.modelValue && panels.value.length)
 
     panels.value.push({ id, name, collapse })
 
@@ -43,8 +44,8 @@ export function usePanelGroup (props, emit) {
       ),
       setCollapse: val => {
         const panel = panels.value.find(panel => panel.id === id)
-        // close all panels
-        if (!props.accordion) {
+        // close all panels before open in accordion mode
+        if (props.accordion) {
           panels.value.forEach(panel => { panel.collapse = true })
         }
         panel && (panel.collapse = val)

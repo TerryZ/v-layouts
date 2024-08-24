@@ -20,9 +20,10 @@ const props = defineProps({
   /** Panel spacing */
   gap: { type: [String, Number], default: '1rem' },
   /**
-   * Whether to allow multiple panels to be expanded at the same time
+   * Panel group allows all panels to be opened by default
+   * set to true, only one panel can be expanded
    */
-  accordion: { type: Boolean, default: true }
+  accordion: { type: Boolean, default: false }
 })
 const emit = defineEmits(['update:modelValue'])
 
