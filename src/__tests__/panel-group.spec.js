@@ -101,7 +101,7 @@ describe('Panel group', () => {
   describe('定制化', () => {
     const wrapper = mount(PanelGroup, {
       props: {
-        accordion: false,
+        accordion: true,
         gap: 20,
         width: 400,
         height: 500
