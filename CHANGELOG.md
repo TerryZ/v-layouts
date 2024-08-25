@@ -2,7 +2,11 @@
 
 Please refer to [CHANGELOG-CN](CHANGELOG-CN.md) for Chinese changelog
 
-## [1.0.1](https://github.com/TerryZ/v-layouts/compare/v1.0....v1.0.1) (2024-08-24)
+## [1.0.2](https://github.com/TerryZ/v-layouts/compare/v1.0.1...v1.0.2) (2024-08-25)
+
+- `AdminClassic` and `ContentPress` scroll bar style optimization
+
+## [1.0.1](https://github.com/TerryZ/v-layouts/compare/v1.0.0...v1.0.1) (2024-08-24)
 
 - The default value of `accordion` prop in `PanelGroup` is changed to `false`
 
